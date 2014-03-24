@@ -1,0 +1,148 @@
+
+
+buildscript {
+  repositories {
+    mavenCentral()
+    maven {
+      url "http://download.java.net/maven/2"
+    }
+    maven { url 'http://repo.spring.io/plugins-release' }
+  }
+
+  dependencies {
+    classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:0.9.8'
+    classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.1'
+  }
+}
+
+
+allprojects {
+    tasks.withType(Test) {
+        if (System.getProperty('DEBUG', 'false') == 'true') {
+            jvmArgs '-Xdebug',
+                '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9009'
+        }
+    }
+
+    tasks.withType(JavaExec) {
+        if (System.getProperty('DEBUG', 'false') == 'true') {
+            jvmArgs '-Xdebug',
+                '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9009'
+        }
+    }
+}
+
+
+subprojects {
+apply plugin: 'war'
+apply plugin: 'tomcat'
+apply plugin: 'java'
+apply plugin: 'propdeps'
+apply plugin: 'propdeps-maven'
+apply plugin: 'propdeps-eclipse'
+apply plugin: 'eclipse'
+apply plugin: "groovy"
+apply plugin: "base"
+
+
+
+
+repositories {
+    mavenCentral()
+    maven { url 'http://repo.spring.io/milestone/'}
+}
+
+ext.embedMongoVersion = '1.36'
+ext.springVersion = '3.2.3.RELEASE'
+
+dependencies {
+    def tomcatVersion = '7.0.42'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
+    tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
+      exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+    }
+
+    compile 'org.springframework:spring-core:${springVersion}'
+    compile 'org.springframework:spring-webmvc:3.2.3.RELEASE'
+    
+	compile 'org.springframework.data:spring-data-mongodb:1.3.3.RELEASE'
+    
+    compile 'org.springframework.security:spring-security-web:3.2.2.RELEASE'
+    compile 'org.springframework.security:spring-security-core:3.2.2.RELEASE'
+    compile 'org.springframework.security:spring-security-config:3.2.2.RELEASE'
+
+    compile 'org.springframework.hateoas:spring-hateoas:0.9.0.RELEASE'
+    
+    compile 'com.jayway.jsonpath:json-path:0.8.1'
+    compile 'com.google.collections:google-collections:1.0'
+
+    compile 'joda-time:joda-time:2.3'
+
+    compile 'javax.validation:validation-api:1.1.0.Final'
+
+    compile 'org.hibernate:hibernate-validator:4.2.0.Final'
+
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    runtime 'org.slf4j:slf4j-jdk14:1.7.5'
+    runtime 'com.fasterxml.jackson.core:jackson-core:2.2.2'
+    runtime 'com.fasterxml.jackson.core:jackson-databind:2.2.2'
+    runtime 'javax.xml.bind:jaxb-api:2.2.9'
+
+    provided 'javax.servlet:javax.servlet-api:3.0.1'
+
+    testCompile 'com.jayway.jsonpath:json-path-assert:0.8.1'
+    testCompile 'org.springframework:spring-test:3.2.3.RELEASE'
+    testCompile 'junit:junit:4.+'
+    testCompile "org.mockito:mockito-all:1.9.5"
+    testCompile "com.google.code.gson:gson:2.2.4"
+    
+    testCompile "de.flapdoodle.embed:de.flapdoodle.embed.mongo:${embedMongoVersion}"
+    
+    groovy "org.codehaus.groovy:groovy-all:2.1.6"
+    testCompile "org.spockframework:spock-core:0.7-groovy-2.0" 
+    
+}
+
+tomcatRunWar.contextPath = ''
+
+}
+
+
+task wrapper (type: Wrapper) {
+	gradleVersion = "1.8"
+}
+
+
+
+
+project(":module-core"){
+	
+    dependencies{        
+        compile 'org.eclipse.jetty:jetty-server:9.1.3.v20140225'
+        compile 'org.eclipse.jetty:jetty-webapp:9.1.3.v20140225'
+        compile 'org.eclipse.jetty:jetty-annotations:9.1.3.v20140225'
+        
+	}
+}
+
+project(":module-test"){
+	
+    dependencies{
+
+        compile project(":module-core")
+
+
+    }
+	
+	
+}
+
+task buildCore (
+    dependsOn: [
+        project("module-core").build
+    ]
+){}
+
+
+
