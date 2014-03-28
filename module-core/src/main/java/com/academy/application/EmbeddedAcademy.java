@@ -1,4 +1,4 @@
-package tools;
+package com.academy.application;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.Configuration;

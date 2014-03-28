@@ -1,4 +1,4 @@
-package tools;
+package com.academy.application;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,7 +27,8 @@ public class FixedAnnotationConfig extends AnnotationConfiguration {
 	    {
 		 
 		   ClassInheritanceMap classMap = (ClassInheritanceMap)context.getAttribute(CLASS_INHERITANCE_MAP);
-	        List<ContainerInitializer> initializers = (List<ContainerInitializer>)context.getAttribute(CONTAINER_INITIALIZERS);
+	        @SuppressWarnings("unchecked")
+			List<ContainerInitializer> initializers = (List<ContainerInitializer>)context.getAttribute(CONTAINER_INITIALIZERS);
 	        
 	        context.removeAttribute(CLASS_INHERITANCE_MAP);
 	        if (classMap != null)

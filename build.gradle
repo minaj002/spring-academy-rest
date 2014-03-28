@@ -10,6 +10,7 @@ buildscript {
   }
 
   dependencies {
+    classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:0.9.8'
     classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.1'
   }
 }
@@ -34,7 +35,7 @@ allprojects {
 
 subprojects {
 apply plugin: 'war'
-apply plugin: 'jetty'
+//apply plugin: 'tomcat'
 apply plugin: 'java'
 apply plugin: 'propdeps'
 apply plugin: 'propdeps-maven'
@@ -55,6 +56,12 @@ ext.embedMongoVersion = '1.36'
 ext.springVersion = '3.2.3.RELEASE'
 
 dependencies {
+//    def tomcatVersion = '7.0.42'
+//    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+//            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
+//    tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
+//      exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+//    }
 
     compile 'org.springframework:spring-core:${springVersion}'
     compile 'org.springframework:spring-webmvc:3.2.3.RELEASE'
@@ -97,7 +104,7 @@ dependencies {
     
 }
 
-jettyRunWar.contextPath = ''
+tomcatRunWar.contextPath = ''
 
 }
 
