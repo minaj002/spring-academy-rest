@@ -43,9 +43,10 @@ apply plugin: 'propdeps-eclipse'
 apply plugin: 'eclipse'
 apply plugin: "groovy"
 apply plugin: "base"
+apply plugin: "application"
 
-
-
+mainClassName = "EmbeddedAcademy"
+applicationName = "app"
 
 repositories {
     mavenCentral()
@@ -104,8 +105,8 @@ dependencies {
     
 }
 
-tomcatRunWar.contextPath = ''
-
+//tomcatRunWar.contextPath = ''
+//
 }
 
 
