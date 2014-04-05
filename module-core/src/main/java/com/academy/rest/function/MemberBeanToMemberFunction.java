@@ -33,7 +33,7 @@ public class MemberBeanToMemberFunction implements Function<MemberBean, Member> 
 		
 		Payment payment = new Payment();
 		payment.setMemberId(bean.getId());
-		member.add(linkTo(methodOn(PaymentsCommandController.class).addNewPayment(payment)).withSelfRel());
+		//member.add(linkTo(methodOn(PaymentsCommandController.class).addNewPayment(payment)).withSelfRel());
 		
 		return member;
 	}
