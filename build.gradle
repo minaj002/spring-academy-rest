@@ -131,7 +131,7 @@ project(":module-core"){
 		apiKey = '2489db7e-3a2b-4632-8a24-383dfa16940e'
 
 		//set this on first run if you don't want a generated name
-		appName = 'academy-manager.v.02'
+		appName = 'academy-manager-v-02'
 
 	}
 }
