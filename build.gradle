@@ -136,10 +136,10 @@ project(":module-core"){
 	}
 }
 
-project(":module-test"){
-
-	dependencies{ compile project(":module-core") }
-}
+//project(":module-test"){
+//
+//	dependencies{ compile project(":module-core") }
+//}
 
 task buildCore (
 		dependsOn: [
