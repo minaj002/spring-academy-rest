@@ -1,2 +1,2 @@
-include 'module-core',
-		'module-test'
+include 'module-core'
+ //,	'module-test'
