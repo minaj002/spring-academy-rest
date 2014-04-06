@@ -147,4 +147,4 @@ task buildCore (
 		]
 		){}
 
-task stage(dependsOn: [project("module-core").clean, project("module-core").build]){}
+task stage(dependsOn: [project("module-core").build]){}
