@@ -1,8 +1,6 @@
 package com.academy.rest.api;
 
-import org.springframework.hateoas.ResourceSupport;
-
-public class Member extends ResourceSupport {
+public class Member {
 
 	private String memberId;
 	private String firstName;

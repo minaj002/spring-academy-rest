@@ -20,18 +20,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.academy.core.command.AddClassCommand;
+import com.academy.core.command.DeleteClassCommand;
+import com.academy.core.command.DeleteMemberCommand;
 import com.academy.core.command.result.AddClassResult;
+import com.academy.core.command.result.DeleteClassResult;
+import com.academy.core.command.result.DeleteMemberResult;
 import com.academy.core.command.service.CommandService;
+import com.academy.core.dto.ClassAttendedBean;
 import com.academy.core.dto.MemberBean;
 import com.academy.rest.api.ClassAttended;
 import com.academy.rest.api.Member;
+import com.academy.rest.function.ClassAttendedToClassAttendedBeanFunction;
 import com.academy.rest.function.MemberToMemberBeanFunction;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 
 @Controller
-@RequestMapping("/classes/new")
+@RequestMapping("/classes")
 public class ClassesCommandController {
 
 	private static Logger LOG = LoggerFactory
@@ -41,8 +47,10 @@ public class ClassesCommandController {
 	CommandService commandService;
 
 	private static Function<Member, MemberBean> MEMBER_TO_MEMBER_BEAN_FUNCTION = new MemberToMemberBeanFunction();
+	
+	private static Function<ClassAttended, ClassAttendedBean> CLASS_ATTENDED_TO_CLASS_ATTENDED_BEAN_FUNCTION = new ClassAttendedToClassAttendedBeanFunction(); 
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, value = "/new")
 	@ResponseBody
 	public ResponseEntity<String> addClass(@RequestBody ClassAttended classAttended) {
 		
@@ -64,6 +72,24 @@ public class ClassesCommandController {
 
 	}
 
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/delete")
+	@ResponseBody
+	public ResponseEntity<String> deleteClass(@RequestBody ClassAttended classAttended) {
+		
+		DeleteClassCommand command = new DeleteClassCommand(CLASS_ATTENDED_TO_CLASS_ATTENDED_BEAN_FUNCTION.apply(classAttended));
+		
+		 DeleteClassResult result = commandService.execute(command);
+		
+		if (!StringUtils.isEmpty(result.getClassId())) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	
 	@ExceptionHandler
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody

@@ -17,7 +17,6 @@ import com.academy.core.query.GetAcademyMembersQuery;
 import com.academy.core.query.result.GetAcademyMembersResult;
 import com.academy.core.query.service.QueryService;
 import com.academy.rest.api.Member;
-import com.academy.rest.controller.command.MembersCommandController;
 import com.academy.rest.function.MemberBeanToMemberFunction;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
@@ -28,7 +27,7 @@ import com.google.common.collect.Lists;
 public class MembersQueryController {
 
 	private static Logger LOG = LoggerFactory
-			.getLogger(MembersCommandController.class);
+			.getLogger(MembersQueryController.class);
 	
 	private static Function<MemberBean, Member> MEMBER_BEAN_TO_MEMBER_FUNCTION = new MemberBeanToMemberFunction();
 	

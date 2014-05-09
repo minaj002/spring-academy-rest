@@ -1,11 +1,14 @@
 package com.academy.rest.controller.query
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.academy.config.CoreConfig;
 import com.academy.config.MVCConfig;
 import com.academy.config.SecurityConfig;
 import com.academy.core.dto.MemberBean;
 import com.academy.core.query.GetAcademyMembersQuery
 
+import org.springframework.hateoas.mvc.ControllerLinkBuilder
 import org.springframework.security.authentication.TestingAuthenticationProvider;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -13,15 +16,18 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.User
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.util.Assert;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder
+import org.springframework.web.context.request.ServletRequestAttributes
 
-import spock.lang.Specification
+import spock.lang.*
 
 import com.academy.rest.controller.query.MembersQueryController;
 import com.academy.core.query.result.GetAcademyMembersResult;
 import com.academy.core.query.service.QueryService;
 
-
-@ContextConfiguration(classes = [SecurityConfig])
+@ContextConfiguration(classes = [SecurityConfig,MVCConfig,CoreConfig])
 class MembersQueryControllerSpecification extends Specification {
 
 	def queryService = Mock(QueryService)
@@ -76,5 +82,6 @@ class MembersQueryControllerSpecification extends Specification {
 		
 		
 	}
+	
 	
 }

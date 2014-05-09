@@ -2,6 +2,8 @@ package com.academy.core.security;
 
 import static com.academy.core.domain.AcademyUser.Role.ROLE_ADMIN;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
@@ -37,9 +39,13 @@ public class DataInitializer {
 			
 			user.addRole(ROLE_ADMIN);
 
-			academyUserRepository.save(user);
+			 academyUserRepository.save(user);
 		}
 		else{
+			List<AcademyUser> users = academyUserRepository.findAll();
+			for (AcademyUser academyUser : users) {
+				logger.info("User: " + academyUser.getName());
+			}
 			logger.info("Default data already initialized");
 		}
 	}

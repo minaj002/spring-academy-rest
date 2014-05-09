@@ -30,6 +30,9 @@ public class AddPaymentHandler implements CommandHandler<AddPaymentCommand, AddP
 		Member member = memberRepository.findOne(command.getPayment().getMemberId());
 		
 		Payment payment = PAYMENT_BEAN_TO_PAYMENT.apply(command.getPayment());
+		
+		payment.setMemberId(member.getId());
+		payment.setAcademyName(member.getAcademyName());
 		payment = paymentRepository.save(payment);
 		member.addPayment(payment);
 		

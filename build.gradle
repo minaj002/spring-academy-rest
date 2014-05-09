@@ -92,6 +92,7 @@ subprojects {
 		testCompile "org.mockito:mockito-all:1.9.5"
 		testCompile "com.google.code.gson:gson:2.2.4"
 
+
 		testCompile "de.flapdoodle.embed:de.flapdoodle.embed.mongo:${embedMongoVersion}"
 
 		groovy "org.codehaus.groovy:groovy-all:2.1.6"
@@ -126,14 +127,6 @@ project(":module-core"){
 		manifest { attributes 'Main-Class': 'com.academy.application.EmbeddedAcademy' }
 	}
 
-	heroku {
-
-		apiKey = '2489db7e-3a2b-4632-8a24-383dfa16940e'
-
-		//set this on first run if you don't want a generated name
-		appName = 'academy-manager-v-02'
-
-	}
 }
 
 //project(":module-test"){

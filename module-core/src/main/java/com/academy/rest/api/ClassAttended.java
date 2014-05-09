@@ -8,6 +8,8 @@ public class ClassAttended {
 
 	private String date;
 	
+	private String id;
+	
 	private List<Member> members= Lists.newArrayList();
 
 	public String getDate() {
@@ -24,6 +26,14 @@ public class ClassAttended {
 
 	public void setMembers(List<Member> members) {
 		this.members = members;
+	}
+
+	public String getId() {
+	    return id;
+	}
+
+	public void setId(String id) {
+	    this.id = id;
 	} 
 	
 }

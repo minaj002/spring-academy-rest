@@ -31,7 +31,7 @@ import com.academy.rest.controller.fixture.RestEventFixsture;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = { CoreConfig.class, MVCConfig.class, SecurityConfig.class })
+@ContextConfiguration(classes = { CoreConfig.class, MVCConfig.class, SecurityConfig.class, PropertiesConfig.class })
 public class RestDomainIntegrationTest extends AbstractMongoDbTest{
 
 	@Autowired

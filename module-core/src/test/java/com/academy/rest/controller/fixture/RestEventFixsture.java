@@ -16,7 +16,7 @@ public class RestEventFixsture {
 		member.setLastName("lastName");
 		member.setEmail("email@mail.com");
 		member.setCity("Riga");
-		member.setDateOfBirth("1985-12-12");
+		member.setDateOfBirth("1985-12-31");
 		member.setStreet("Mana Gatve");
 		Gson gson = new Gson();
 

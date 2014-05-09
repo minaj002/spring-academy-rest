@@ -16,24 +16,23 @@ import com.google.common.base.Function;
 @Component
 public class AddMemberHandler implements CommandHandler<AddMemberCommand, AddMemberResult> {
 
-	@Autowired
-	MemberRepository memberRepository;
-	
-	@Autowired
-	AcademyUserRepository academyUserRepository;
-	
-	private static final Function<MemberBean, Member> MEMBER_BEAN_TO_MEMBER = new MemberBeanToMemberFunction();
-	
-	@Override
-	public AddMemberResult execute(AddMemberCommand command) {
+    @Autowired
+    MemberRepository memberRepository;
 
-		AcademyUser user = academyUserRepository.findByName(command.getUserName());
-		Member member = MEMBER_BEAN_TO_MEMBER.apply(command.getMember());
-		member.setAcademyName(user.getAcademy().getName());
-		memberRepository.save(member);
-		
-		return new AddMemberResult(member.getId());
-	}
+    @Autowired
+    AcademyUserRepository academyUserRepository;
 
-	
+    private static final Function<MemberBean, Member> MEMBER_BEAN_TO_MEMBER = new MemberBeanToMemberFunction();
+
+    @Override
+    public AddMemberResult execute(AddMemberCommand command) {
+
+	AcademyUser user = academyUserRepository.findByName(command.getUserName());
+	Member member = MEMBER_BEAN_TO_MEMBER.apply(command.getMember());
+	member.setAcademyName(user.getAcademy().getName());
+	memberRepository.save(member);
+
+	return new AddMemberResult(member.getId());
+    }
+
 }

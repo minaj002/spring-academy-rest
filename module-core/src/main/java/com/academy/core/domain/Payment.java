@@ -15,6 +15,10 @@ public class Payment {
 	private Date date;
 	
 	private Date paidUntill;
+	
+	private String academyName;
+	
+	private String memberId;
 
 	public String getId() {
 		return id;
@@ -46,6 +50,22 @@ public class Payment {
 
 	public void setPaidUntill(Date paidUntill) {
 		this.paidUntill = paidUntill;
+	}
+
+	public String getAcademyName() {
+		return academyName;
+	}
+
+	public void setAcademyName(String academyName) {
+		this.academyName = academyName;
+	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 	
 }
