@@ -19,6 +19,7 @@ public class PropertiesConfig {
 		
 		final String applicationHome = System.getProperty("application.home");
 		
+		System.out.println(applicationHome);
 		configurer.setLocations(new Resource[] {
 				new ClassPathResource("application.properties"),
 				new FileSystemResource(new File(applicationHome,"application.properties"))
