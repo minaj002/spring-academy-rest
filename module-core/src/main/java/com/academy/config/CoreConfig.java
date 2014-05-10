@@ -21,19 +21,19 @@ import com.mongodb.MongoClient;
 @EnableMongoRepositories(basePackages = "com.academy.repository")
 public class CoreConfig {
 
-    @Value("${database.name}")
+    @Value("${database.name:heroku_app23331098}")
     private String databaseName;
 
-    @Value("${database.port}")
+    @Value("${database.port:45137}")
     private int port;
 
-    @Value("${database.host}")
+    @Value("${database.host:ds045137.mongolab.com}")
     private String host;
 
-    @Value("${database.user}")
+    @Value("${database.user:heroku_app23331098}")
     private String user;
 
-    @Value("${database.password}")
+    @Value("${database.password:r7sir4ocq66034jq4gs5svpvbu}")
     private String password;
 
     @Bean
