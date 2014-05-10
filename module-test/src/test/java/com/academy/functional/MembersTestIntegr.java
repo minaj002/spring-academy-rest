@@ -30,9 +30,9 @@ public class MembersTestIntegr {
 
     RestTemplate template = new RestTemplate();
     HttpEntity<String> requestEntity;
-    String host = "http://localhost:8080";
+    //String host = "http://localhost:8080";
 
-    // String host = "http://academy-manager-v1.herokuapp.com";
+     String host = "http://academy-manager-v1.herokuapp.com";
 
     @Test
     public void thatNewAcademyCreated() {
