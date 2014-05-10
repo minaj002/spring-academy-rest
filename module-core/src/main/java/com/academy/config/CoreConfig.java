@@ -1,5 +1,6 @@
 package com.academy.config;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -37,14 +38,13 @@ public class CoreConfig {
 
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
-	MongoClient mongoClient = new MongoClient("ds045137.mongolab.com", 45137);
-
-	DB db = mongoClient.getDB("heroku_app23331098");
-
-	db.authenticate("heroku_app23331098", "r7sir4ocq66034jq4gs5svpvbu".toCharArray());
-//	System.out.println(databaseName);
-	return new SimpleMongoDbFactory(mongoClient, "heroku_app23331098");
-//	return new SimpleMongoDbFactory(new MongoClient(), "academy");
+	if (StringUtils.isNotEmpty(password)) {
+	    MongoClient mongoClient = new MongoClient(host, port);
+	    DB db = mongoClient.getDB(databaseName);
+	    db.authenticate(user, password.toCharArray());
+	    return new SimpleMongoDbFactory(mongoClient, "heroku_app23331098");
+	}
+	return new SimpleMongoDbFactory(new MongoClient(), "academy");
     }
 
     @Bean
