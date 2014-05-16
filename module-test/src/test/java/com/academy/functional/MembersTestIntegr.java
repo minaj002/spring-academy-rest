@@ -30,9 +30,9 @@ public class MembersTestIntegr {
 
     RestTemplate template = new RestTemplate();
     HttpEntity<String> requestEntity;
-    //String host = "http://localhost:8080";
+    String host = "http://localhost:8080";
 
-     String host = "http://academy-manager-v1.herokuapp.com";
+    // String host = "http://academy-manager-v1.herokuapp.com";
 
     @Test
     public void thatNewAcademyCreated() {
@@ -79,17 +79,45 @@ public class MembersTestIntegr {
 	addPayment("admin@ee.com", "password", addedMember.get("memberId"), "2012-01-08", "2012-02-08", BigDecimal.valueOf(43));
 
 	ResponseEntity<List> payments = getPayments("admin@ee.com", "password", "2012-01-02", 1);
-	
-	
+
 	getAcademies(2);
 
 	deleteMember("admin@ee.com", "password", addedMember);
 	members = getMembersForOwner("admin@ee.com", "password", 1);
-	
+
 	addedMember = (LinkedHashMap<String, String>) members.getBody().get(0);
 	deleteMember("admin@ee.com", "password", addedMember);
 	members = getMembersForOwner("admin@ee.com", "password", 0);
 
+    }
+
+    @Test
+    public void deleteClass(){
+	
+	getClassesForDate("admin@ee.com", "password", "2013-12-12", 1);
+	
+    }
+
+    private ResponseEntity<List> getClassesForDate(String user, String pass, String date, int count) {
+
+	requestEntity = new HttpEntity<String>(getHeaders(user + ":" + pass));
+
+	ResponseEntity<List> members = template.exchange(host + "/classes/" + date, HttpMethod.GET, requestEntity, List.class);
+
+	System.out.println(members.getBody());
+
+	assertEquals(count, members.getBody().size());
+	return members;
+    }
+
+    private void deleteClass(String user, String pass, LinkedHashMap<String, String> classAttended) {
+	ResponseEntity<ClassAttended> classEntity;
+
+	System.out.println(classAttended);
+	Gson gson = new Gson();
+	requestEntity = new HttpEntity<String>(gson.toJson(classAttended), getHeaders(user + ":" + pass));
+
+	classEntity = template.postForEntity(host + "/classes/delete", requestEntity, ClassAttended.class);
     }
 
     private void deleteMember(String user, String pass, LinkedHashMap<String, String> member) {
