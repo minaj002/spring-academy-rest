@@ -64,12 +64,12 @@ class GetClassesAttendedForDateHandlerClassification extends Specification {
 			
 			assert mockedList.size()==8
 		
-			classAttendedRepository.findByAcademyNameAndDate("academy", DateTime.parse("2012-01-01").toDate())>> mockedList
 			
 			AcademyUser user= new AcademyUser()
 			Academy academy = new Academy()
 			academy.setName("academy")
 			user.setAcademy(academy);
+			classAttendedRepository.findByAcademyAndDateIsBetween(academy, DateTime.parse("2012-01-01").toDate(),DateTime.parse("2012-02-01").toDate())>> mockedList
 			
 			academyUserRepository.findByName("owner")>>user
 		
