@@ -26,7 +26,7 @@ import spock.lang.*
 
 import com.academy.rest.controller.query.MembersQueryController;
 import com.academy.core.query.result.GetAcademyMembersResult;
-import com.academy.core.query.result.GetPaymentsForMonthResult;
+import com.academy.core.query.result.PaymentsForMonthResult;
 import com.academy.core.query.service.QueryService;
 
 import org.joda.time.DateTime;
@@ -65,7 +65,7 @@ class PaymentsQueryControllerSpecification extends Specification {
 		
 					assert mockedList.size()==10
 					
-					GetPaymentsForMonthResult payments = new GetPaymentsForMonthResult();
+					PaymentsForMonthResult payments = new PaymentsForMonthResult();
 					payments.setPayments(mockedList);
 					
 					queryService.execute(_)>>payments

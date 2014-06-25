@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.academy.core.command.AddPaymentCommand;
 import com.academy.core.command.DeleteMemberCommand;
 import com.academy.core.command.DeletePaymentCommand;
+import com.academy.core.command.EditPaymentCommand;
 import com.academy.core.command.result.AddPaymentResult;
 import com.academy.core.command.result.DeletePaymentResult;
+import com.academy.core.command.result.EditPaymentResult;
 import com.academy.core.command.service.CommandService;
 import com.academy.core.dto.PaymentBean;
 import com.academy.rest.api.Member;
@@ -58,6 +60,27 @@ public class PaymentsCommandController {
 	    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = "/edit")
+    @ResponseBody
+    public ResponseEntity<String> editPayment(@RequestBody Payment payment) {
+	
+	SecurityContext context = SecurityContextHolder.getContext();
+	
+	String userName = context.getAuthentication().getName();
+	
+	EditPaymentCommand command = new EditPaymentCommand(PAYMENT_TO_PAYMENT_BEAN_FUNCTION.apply(payment));
+	command.setUserName(userName);
+	
+	EditPaymentResult result = commandService.execute(command);
+	
+	if (!StringUtils.isEmpty(result.getPaymentId())) {
+	    return new ResponseEntity<>(HttpStatus.CREATED);
+	} else {
+	    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/delete")

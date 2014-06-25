@@ -5,7 +5,7 @@ import java.util.List;
 import com.academy.core.dto.PaymentBean;
 import com.google.common.collect.Lists;
 
-public class GetPaymentsForMonthResult implements QueryResult {
+public class PaymentsForMonthResult implements QueryResult {
 
 	private List<PaymentBean> payments = Lists.newArrayList();
 

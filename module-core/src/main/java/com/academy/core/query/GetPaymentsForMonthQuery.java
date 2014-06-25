@@ -2,9 +2,9 @@ package com.academy.core.query;
 
 import java.util.Date;
 
-import com.academy.core.query.result.GetPaymentsForMonthResult;
+import com.academy.core.query.result.PaymentsForMonthResult;
 
-public class GetPaymentsForMonthQuery implements Query<GetPaymentsForMonthResult> {
+public class GetPaymentsForMonthQuery implements Query<PaymentsForMonthResult> {
 
 	private String userName;
 	private Date paymentsForMonth;

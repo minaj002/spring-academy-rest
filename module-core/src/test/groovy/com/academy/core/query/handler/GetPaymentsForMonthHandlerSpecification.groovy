@@ -15,7 +15,7 @@ import com.academy.core.query.GetAcademyMembersQuery
 import com.academy.core.query.GetPaymentsForMonthQuery
 import com.academy.core.query.handler.GetAcademyMembersHandler;
 import com.academy.core.query.result.GetAcademyMembersResult;
-import com.academy.core.query.result.GetPaymentsForMonthResult
+import com.academy.core.query.result.PaymentsForMonthResult
 import com.academy.repository.AcademyUserRepository;
 import com.academy.repository.PaymentRepository;
 
@@ -61,7 +61,7 @@ class GetPaymentsForMonthHandlerSpecification extends Specification {
 			handler.paymentRepository=paymentRepository
 			handler.academyUserRepository=academyUserRepository
 			GetPaymentsForMonthQuery query = new GetPaymentsForMonthQuery("owner", DateTime.parse("2012-01-31").toDate());
-			GetPaymentsForMonthResult result = handler.execute(query);
+			PaymentsForMonthResult result = handler.execute(query);
 		
 		then: "return Result with List af all members"
 			
